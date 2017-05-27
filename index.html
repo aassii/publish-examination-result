@@ -1,0 +1,122 @@
+<html>
+<head>
+<style>
+	td,h4 {
+    text-transform: uppercase;
+}
+#err{
+	color: red;
+}
+input {
+    border: 1px solid #4195fc; /* some kind of blue border */
+
+    /* other CSS styles */
+
+    /* round the corners */
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+
+
+    /* make it glow! */
+    -webkit-box-shadow: 0px 0px 4px #4195fc;
+       -moz-box-shadow: 0px 0px 4px #4195fc;
+            box-shadow: 0px 0px 4px #4195fc; /* some variation of blue for the shadow */
+
+}
+
+</style>
+	<title>Anna University Result</title>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script type="text/javascript">
+		
+$(document).ready(function(){
+	$(".hd").hide();
+
+	var val=null;
+$("#btn").click(function(){
+val=document.getElementById("str").value;
+console.log(val.length);
+if(val!=""){
+	if (val.length==12) {
+$.ajax({
+	url:"result.php?str="+val,
+	method: "GET",
+	success: function(data){
+		console.log(data.length);
+		var obj = JSON.parse(data);
+		$("#err").text(" ");
+if(data.length>2){
+	$(".hd").show();
+	$("#mg").text(obj.mca);
+$("#hci").text(obj.hci);
+$("#spm").text(obj.spm);
+$("#p").text(obj.p);
+$("#name").text("NAME : "+obj.name);
+$("#regno").text("REG NO :"+obj.regno);
+if(obj.mca=="u"){
+$("#p1").text("RA");
+}
+else{
+	$("#p1").text("PASS");
+}
+if(obj.hci=="u"){
+$("#p2").text("RA");
+}
+else{
+	$("#p2").text("PASS");
+}
+if(obj.spm=="u"){
+$("#p3").text("RA");
+}
+else{
+	$("#p3").text("PASS");
+}
+if(obj.p=="u"){
+$("#p4").text("RA");
+}
+else{
+	$("#p4").text("PASS");
+}
+
+}
+else{
+	$("#err").text("Result Is Not Available For Your Register No.");
+		$(".hd").hide();
+}
+}
+});
+	}
+	else{
+
+		$("#err").text("Enter 12 Digit Register No");
+		$(".hd").hide();
+	}
+}
+else{
+	$("#err").text("Please Enter Your Register No");
+	$(".hd").hide();
+}
+});
+});
+	</script>
+</head>
+<body style="background-color: skyblue">
+<center>
+<h1 class="text-danger">ANNA UNIV 8TH SEMESTER RESULTS APRIL/2017</h1>
+<h2 class="text-danger">Progress Through Knowledge</h2>
+<input type="text" name="str" id="str" placeholder="Your Register No."><br>
+<input id="btn" type="button" value="Result" class="btn btn-primary"><br>
+<b id="err"></b>
+<h4 id="name" class="hd"></h4><h4 class="hd" id="regno"></h4><h4 class="hd">Branch : Computer Science and Engineering </h4>
+<table class="table table-striped table-bordered">  
+<tr><th class="hd">Subject</th><th class="hd" >Grade</th><th class="hd">Result</th></tr>  
+<tr><td class="hd">CS6801</td><td id="mg" class="hd">A</td><td id="p1" class="hd">60</td></tr>  
+<tr><td class="hd" >CS6008</td><td id="hci" class="hd">B</td ><td id="p2" class="hd">80</td></tr>  
+<tr><td class="hd">MG6088</td><td id="spm" class="hd">C</td ><td id="p3" class="hd">82</td></tr>  
+<tr><td class="hd">CS6811</td><td id="p" class="hd">D</td ><td id="p4" class="hd">72</td></tr>  
+</table>  
+</center>
+</body>
+</html>
